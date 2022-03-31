@@ -14,6 +14,7 @@ import java.util.*
 class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var binding:ActivityLayoutBinding
     private external fun VerifyInput(diff:String, message: String )
+    private external fun mineGenesis(diff:Int)
 
 
     /**
@@ -26,12 +27,13 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         binding = ActivityLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var transaction_message:String = ""
+        var transaction_message:String = "nil"
         binding.genesisButton.setOnClickListener {
             // clear text field for each press
             binding.logTextView.text =""
             // clear flag
             emptyLogs()
+            mineGenesis(binding.difficultyEditText.text.toString().toInt())
 
         }
 
@@ -70,13 +72,13 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         // If difficulty edit text is out of range
         if(binding.difficultyEditText.text.toString().toInt() < 1 || binding.difficultyEditText.text.toString().toInt() > 10) {
             binding.logTextView.append("difficulty must be 1 to 10...\n")
-            return ""
+            return "nil"
         }
         else{return binding.difficultyEditText.text.toString()}
         }catch (e: NumberFormatException){
             //If difficulty edit text is empty
             binding.logTextView.append("difficulty is empty...\n")
-            return ""
+            return "nil"
         }
     }
     companion object{
