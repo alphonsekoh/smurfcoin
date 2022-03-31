@@ -12,6 +12,8 @@ import java.util.*
 
 class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var binding:ActivityLayoutBinding
+    private external fun VerifyInput(input: Int)
+    private var verifyFlag:Int = 0
 
     /**
      * Init everything needed when created.
@@ -26,17 +28,25 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         binding.genesisButton.setOnClickListener {
             // clear text field for each press
             binding.logTextView.text =""
+            // clear flag
+            verifyFlag = 0
             emptyLogs()
+
         }
 
         binding.chainButton.setOnClickListener {
             // clear text field for each press
             binding.logTextView.text =""
+            // clear flag
+            verifyFlag = 0
             emptyLogs()
+            if(emptyLogs())
+                verifyFlag++
             // if transaction message is empty
-            if(binding.msgEditText.text.isEmpty()){
+            if(binding.msgEditText.text.isEmpty())
                 binding.logTextView.append("describe your transaction in words...\n")
-            }
+            else
+                verifyFlag++
 
             try {
                 // if block number is out of range
@@ -44,26 +54,38 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                         .toInt() < 2 || binding.blocksEditText.text.toString().toInt() > 888
                 )
                     binding.logTextView.append("blocks must be 2 to 888...\n")
-
+                else
+                    verifyFlag++
             } catch (e: NumberFormatException) {
                 binding.logTextView.append("blocks cannot be empty...\n")
             }
+            Log.d(TAG, "verifyFlag: $verifyFlag")
+            VerifyInput(verifyFlag)
         }
     }
 
     /**
      *  If text is empty show error on Logs
      */
-    private fun emptyLogs(){
+    private fun emptyLogs(): Boolean{
         try{
         // If difficulty edit text is out of range
-        if(binding.difficultyEditText.text.toString().toInt() < 1 || binding.difficultyEditText.text.toString().toInt() > 10)
+        if(binding.difficultyEditText.text.toString().toInt() < 1 || binding.difficultyEditText.text.toString().toInt() > 10) {
             binding.logTextView.append("difficulty must be 1 to 10...\n")
+            return false
+        }
+        else{return true}
         }catch (e: NumberFormatException){
             //If difficulty edit text is empty
             binding.logTextView.append("difficulty is empty...\n")
+            return false
         }
     }
+    companion object{
 
-
+        private val TAG = BTCOActivity::class.java.simpleName
+        init {
+            System.loadLibrary("btco")
+        }
+    }
 }
