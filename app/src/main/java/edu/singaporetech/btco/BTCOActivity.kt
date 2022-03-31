@@ -24,24 +24,29 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         setContentView(binding.root)
 
         binding.genesisButton.setOnClickListener {
+            // clear text field for each press
+            binding.logTextView.text =""
             emptyLogs()
         }
 
         binding.chainButton.setOnClickListener {
+            // clear text field for each press
+            binding.logTextView.text =""
             emptyLogs()
             // if transaction message is empty
             if(binding.msgEditText.text.isEmpty()){
                 binding.logTextView.append("describe your transaction in words...\n")
             }
 
-            // if block number is empty
-            if(binding.blocksEditText.text.isEmpty()){
-                binding.logTextView.append("blocks cannot be empty...\n")
-            }
+            try {
+                // if block number is out of range
+                if (binding.blocksEditText.text.toString()
+                        .toInt() < 2 || binding.blocksEditText.text.toString().toInt() > 888
+                )
+                    binding.logTextView.append("blocks must be 2 to 888...\n")
 
-            // if block number is out of range
-            if(binding.blocksEditText.text.toString().toInt() < 2 || binding.blocksEditText.text.toString().toInt() > 888){
-                binding.logTextView.append("blocks must be 2 to 888...\n")
+            } catch (e: NumberFormatException) {
+                binding.logTextView.append("blocks cannot be empty...\n")
             }
         }
     }
@@ -50,13 +55,13 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
      *  If text is empty show error on Logs
      */
     private fun emptyLogs(){
-        // If difficulty edit text is empty
-        if(binding.difficultyEditText.text.isEmpty()){
-            binding.logTextView.append("difficulty is empty...\n")
-        }
+        try{
         // If difficulty edit text is out of range
-        if(binding.difficultyEditText.text.toString().toInt() < 1 || binding.difficultyEditText.text.toString().toInt() > 10){
+        if(binding.difficultyEditText.text.toString().toInt() < 1 || binding.difficultyEditText.text.toString().toInt() > 10)
             binding.logTextView.append("difficulty must be 1 to 10...\n")
+        }catch (e: NumberFormatException){
+            //If difficulty edit text is empty
+            binding.logTextView.append("difficulty is empty...\n")
         }
     }
 
