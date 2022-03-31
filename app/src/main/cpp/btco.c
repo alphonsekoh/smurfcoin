@@ -22,3 +22,15 @@ Java_edu_singaporetech_btco_BTCOActivity_mineGenesis(JNIEnv *env, jobject thiz, 
         char genesisData[] = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
          addBlockWithPrevPtr(NULL, genesisData,sizeof(genesisData), diff);
 }
+
+JNIEXPORT void JNICALL
+Java_edu_singaporetech_btco_BTCOActivity_mineChain(JNIEnv *env, jobject thiz, jint diff,
+                                                   jint blocks, jstring message) {
+    char genesisData[] = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+    BlockHeader genesis =  addBlockWithPrevPtr(NULL, genesisData,sizeof(message), diff);
+    BlockHeader *prevHeader = &genesis;
+    for(int i = 1; i < blocks; i++) {
+        BlockHeader currHead = addBlockWithPrevPtr(prevHeader, message,sizeof(message), diff);
+        prevHeader = &currHead;
+    }
+}

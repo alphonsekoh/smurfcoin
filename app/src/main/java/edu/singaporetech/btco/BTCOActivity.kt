@@ -15,6 +15,7 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var binding:ActivityLayoutBinding
     private external fun VerifyInput(diff:String, message: String )
     private external fun mineGenesis(diff:Int)
+    private external fun mineChain(diff:Int, blocks:Int, message:String)
 
 
     /**
@@ -33,7 +34,11 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             binding.logTextView.text =""
             // clear flag
             emptyLogs()
-            mineGenesis(binding.difficultyEditText.text.toString().toInt())
+            try {
+                mineGenesis(binding.difficultyEditText.text.toString().toInt())
+            } catch (e: Exception) {
+                Log.d(TAG, "Error: " + e.message)
+            }
 
         }
 
@@ -53,8 +58,12 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 // if block number is out of range
                 if (binding.blocksEditText.text.toString()
                         .toInt() < 2 || binding.blocksEditText.text.toString().toInt() > 888
-                )
+                ) {
                     binding.logTextView.append("blocks must be 2 to 888...\n")
+                }else{
+                    mineChain(binding.difficultyEditText.text.toString().toInt(),
+                        binding.blocksEditText.text.toString().toInt(), transaction_message)
+                }
 
             } catch (e: NumberFormatException) {
                 binding.logTextView.append("blocks cannot be empty...\n")
