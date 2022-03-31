@@ -3,6 +3,7 @@
     <string name="words_of_wisdom">Not financial advice, ever. \n- your teacher</string>
     <string name="block_mine_text">NO. OF BLOCK TO MINE: </string>
     <string name="mine_hint">2 to 88..</string>
+    <string name="diff_hint">1 to 10..</string>
     <string name="difficulty_text">NETWORK DIFFICULTY: </string>
     <string name="transaction_text">TRANSACTION MESSAGE: </string>
     <string name="transaction_hint">describe your transaction in words..</string>

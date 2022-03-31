@@ -4,16 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.singaporetech.btco.BTCOActivity">
+    tools:context="edu.singaporetech.btco.BTCOActivity"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
+        android:id="@+id/blocksTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="textEnd"
-        android:text="@string/words_of_wisdom"
+        android:text="@string/block_mine_text"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorLabels"
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.015"
+        />
+
+    <EditText
+        android:id="@+id/blocksEditText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/blocksTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/mine_hint"
+        android:textAlignment="center"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/diffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/difficulty_text"
+        app:layout_constraintTop_toBottomOf="@id/blocksTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.035"
+        android:textSize="20sp"
+        android:textColor="@color/colorLabels"/>
+
+    <EditText
+        android:id="@+id/difficultyEditText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/diff_hint"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/diffTextView"
+        app:layout_constraintTop_toBottomOf="@id/blocksEditText"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/transTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/transaction_text"
+        app:layout_constraintTop_toBottomOf="@id/diffTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
+        android:textColor="@color/colorLabels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.03"/>
+
+    <EditText
+        android:id="@+id/msgEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/transaction_hint"
+        app:layout_constraintTop_toBottomOf="@id/transTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.03"/>
+
+    <Button
+        android:id="@+id/genesisButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mine_gen"
+        app:layout_constraintTop_toBottomOf="@id/msgEditText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.03"/>
+
+    <Button
+        android:id="@+id/chainButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/genesisButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        android:text="@string/mine_chain"/>
+
+    <TextView
+        android:id="@+id/hashTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hash_text"
+        app:layout_constraintTop_toBottomOf="@id/chainButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.03"
+        android:textColor="@color/colorLabels"/>
+
+    <TextView
+        android:id="@+id/dataHashTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hash_desc_text"
+        app:layout_constraintTop_toBottomOf="@id/hashTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.03"/>
+
+    <TextView
+        android:id="@+id/logLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_text"
+        app:layout_constraintTop_toBottomOf="@id/dataHashTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.03"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/logTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_desc_text"
+        app:layout_constraintTop_toBottomOf="@id/logLabelTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.03"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
