@@ -2,7 +2,7 @@
     <string name="app_name">MineMine App</string>
     <string name="words_of_wisdom">Not financial advice, ever. \n- your teacher</string>
     <string name="block_mine_text">NO. OF BLOCK TO MINE: </string>
-    <string name="mine_hint">2 to 88..</string>
+    <string name="mine_hint">2 to 888..</string>
     <string name="diff_hint">1 to 10..</string>
     <string name="difficulty_text">NETWORK DIFFICULTY: </string>
     <string name="transaction_text">TRANSACTION MESSAGE: </string>
@@ -12,5 +12,5 @@
     <string name="hash_text">DATA HASH: </string>
     <string name="hash_desc_text">hash of the data displayed here..</string>
     <string name="log_text">LOG: </string>
-    <string name="log_desc_text">difficulty cannot be empty</string>
+
 </resources>
