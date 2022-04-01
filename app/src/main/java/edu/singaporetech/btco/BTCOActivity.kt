@@ -36,8 +36,12 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             // clear flag
             emptyLogs()
             try {
-                val genesis = mineGenesis(binding.difficultyEditText.text.toString().toInt())
-                binding.dataHashTextView.text = genesis
+                launch {
+                    val genesis:String
+                    withContext(Dispatchers.Default){ genesis = mineGenesis(binding.difficultyEditText.text.toString().toInt()) }
+                    binding.dataHashTextView.text = genesis
+                }
+
             } catch (e: Exception) {
                 Log.d(TAG, "Error: " + e.message)
             }
@@ -62,9 +66,16 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 ) {
                     binding.logTextView.append("blocks must be 2 to 888...\n")
                 }else{
-                    val chain = mineChain(binding.difficultyEditText.text.toString().toInt(),
-                        binding.blocksEditText.text.toString().toInt(), transaction_message)
-                    binding.dataHashTextView.text = chain
+                    launch {
+                        val chain:String
+                        withContext(Dispatchers.Default) {
+                             chain = mineChain(
+                                binding.difficultyEditText.text.toString().toInt(),
+                                binding.blocksEditText.text.toString().toInt(), transaction_message
+                            )
+                        }
+                        binding.dataHashTextView.text = chain
+                    }
                 }
 
             } catch (e: NumberFormatException) {
