@@ -58,8 +58,7 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
             try {
                 // if block number is out of range
-                if (binding.blocksEditText.text.toString()
-                        .toInt() < 2 || binding.blocksEditText.text.toString().toInt() > 888
+                if (binding.blocksEditText.text.toString().toInt() < 2 || binding.blocksEditText.text.toString().toInt() > 888
                 ) {
                     binding.logTextView.append("blocks must be 2 to 888...\n")
                 }else{

@@ -24,6 +24,7 @@ Java_edu_singaporetech_btco_BTCOActivity_mineGenesis(JNIEnv *env, jobject thiz, 
         char hashStr[HASH_LEN*2+1];
         makeCStringFromBytes(genBlock.dataHash, hashStr, HASH_LEN);
         __android_log_print(ANDROID_LOG_DEBUG, TAG, "genesis block hash=%s", hashStr);
+        mine(&genBlock, diff);
         return (*env)->NewStringUTF(env, hashStr);
 }
 
@@ -35,10 +36,12 @@ Java_edu_singaporetech_btco_BTCOActivity_mineChain(JNIEnv *env, jobject thiz, ji
 
 
     BlockHeader genesis =  addBlockWithPrevPtr(NULL, genesisData,sizeof(message), diff);
+    mine(&genesis, diff);
     BlockHeader *prevHeader = &genesis;
     for(int i = 1; i < blocks; i++) {
         BlockHeader currHead = addBlockWithPrevPtr(prevHeader, message,sizeof(message), diff);
         makeCStringFromBytes(currHead.dataHash, hashStr, HASH_LEN);
+        mine(&currHead, diff);
         prevHeader = &currHead;
     }
 
