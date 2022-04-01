@@ -37,9 +37,13 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             emptyLogs()
             try {
                 launch {
+                    // Get start time
+                    val startTime = System.currentTimeMillis()
                     val genesis:String
                     withContext(Dispatchers.Default){ genesis = mineGenesis(binding.difficultyEditText.text.toString().toInt()) }
                     binding.dataHashTextView.text = genesis
+                    val resultTime = System.currentTimeMillis() - startTime
+                    binding.logTextView.setText("blockchain took ${resultTime}ms to mine\n")
                 }
 
             } catch (e: Exception) {
@@ -68,13 +72,15 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 }else{
                     launch {
                         val chain:String
+                        val startTime = System.currentTimeMillis()
                         withContext(Dispatchers.Default) {
-                             chain = mineChain(
-                                binding.difficultyEditText.text.toString().toInt(),
-                                binding.blocksEditText.text.toString().toInt(), transaction_message
-                            )
+                            // start time
+
+                             chain = mineChain(binding.difficultyEditText.text.toString().toInt(), binding.blocksEditText.text.toString().toInt(), transaction_message)
                         }
                         binding.dataHashTextView.text = chain
+                        val resultTime = System.currentTimeMillis() - startTime
+                        binding.logTextView.setText("blockchain took ${resultTime}ms to mine\n")
                     }
                 }
 
