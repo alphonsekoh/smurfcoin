@@ -30,7 +30,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/mine_hint"
         android:textAlignment="center"
-        android:inputType="number"/>
+        android:inputType="number"
+        />
 
     <TextView
         android:id="@+id/diffTextView"

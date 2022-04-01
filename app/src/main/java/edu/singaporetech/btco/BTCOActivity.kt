@@ -14,8 +14,8 @@ import java.util.*
 class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var binding:ActivityLayoutBinding
     private external fun VerifyInput(diff:String, message: String )
-    private external fun mineGenesis(diff:Int)
-    private external fun mineChain(diff:Int, blocks:Int, message:String)
+    private external fun mineGenesis(diff:Int): String
+    private external fun mineChain(diff:Int, blocks:Int, message:String): String
 
 
     /**
@@ -29,13 +29,15 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         setContentView(binding.root)
 
         var transaction_message:String = "nil"
+
         binding.genesisButton.setOnClickListener {
             // clear text field for each press
             binding.logTextView.text =""
             // clear flag
             emptyLogs()
             try {
-                mineGenesis(binding.difficultyEditText.text.toString().toInt())
+                val genesis = mineGenesis(binding.difficultyEditText.text.toString().toInt())
+                binding.dataHashTextView.text = genesis
             } catch (e: Exception) {
                 Log.d(TAG, "Error: " + e.message)
             }
@@ -61,8 +63,9 @@ class BTCOActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 ) {
                     binding.logTextView.append("blocks must be 2 to 888...\n")
                 }else{
-                    mineChain(binding.difficultyEditText.text.toString().toInt(),
+                    val chain = mineChain(binding.difficultyEditText.text.toString().toInt(),
                         binding.blocksEditText.text.toString().toInt(), transaction_message)
+                    binding.dataHashTextView.text = chain
                 }
 
             } catch (e: NumberFormatException) {
